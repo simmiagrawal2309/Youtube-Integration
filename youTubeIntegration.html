@@ -1,0 +1,82 @@
+<template>
+
+    <div class="container">
+
+        <!-- <img src={youtubelogourl} alt="youtubeImage" class="image1" style="width: 70px; height:30px" /> -->
+
+        <div class="forCenter">
+            <div class="mainDiv" style="border-radius: 300px;">
+                <div style="width: 100%;">
+                    <input type="search" style="width: 100%; height:100%" id="fname" class="searchclass borderclass" name="fname"
+                        placeholder="Search">
+                </div>
+                <div onclick={searchButtonHandler} class="searchIconClass">
+                    <!-- <lightning-button-icon icon-name="utility:search" size="large" alternative-text="Save"
+                        onclick={searchButtonHandler} class="searchIconClass">
+                    </lightning-button-icon> -->
+                    <lightning-icon icon-name="utility:search" alternative-text="Error!" title="" size="small">
+                    </lightning-icon>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="bodyClass">
+            <template if:true={isContentAvailable}>
+                <template for:each={content} for:item="contentItem">
+
+                    <div key={contentItem.Id} style="padding-top: 5%;">
+                        <div style="display: flex;" onclick={videoplay} data-id={contentItem.id.videoId}>
+                            <div style="padding-left: 5%;">
+                                <img src={contentItem.snippet.thumbnails.high.url} alt=""
+                                    style="width: 600px; height: 200px; border-radius: 15px;" />
+                            </div>
+                            <div style="padding: 0% 3% 0% 3% ">
+                                <div>
+                                    <h1 class="title"
+                                        style="font-size: 30px;font-family: Roboto, Arial, sans-serif; color:black">
+                                        <strong>{contentItem.snippet.title}</strong>
+                                    </h1>
+                                </div>
+                                <div>
+                                    <p class="desc"
+                                        style="font-size: 20px;font-family: Roboto, Arial, sans-serif; color:black">
+                                        {contentItem.snippet.description}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </template>
+            </template>
+        </div>
+        <div class="modal">
+            <div class="modal-content">
+
+                <template if:true={isModalOpen}>
+                    <!-- Modal/Popup Box LWC starts here -->
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                    size="small"></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+
+                            <iframe src={videoidurl} width="700" height="545"></iframe>
+
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+            </div>
+
+        </div>
+
+
+    </div>
+</template>
